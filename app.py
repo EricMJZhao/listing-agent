@@ -22,11 +22,23 @@ Streamlit UI —— Sprint 5 演示界面。
 
 import io
 import json
+import os
 import sys
 from contextlib import redirect_stdout
 from pathlib import Path
 
 import streamlit as st
+
+# Streamlit Cloud 兼容:显式把 st.secrets 同步到 os.environ。
+# 为什么显式做:Streamlit 官方文档说 secrets 会自动 mirror 到 os.environ,
+# 但实测(2026-07)Streamlit Cloud 部署环境下,业务代码顶层 os.getenv
+# 有 timing 问题读不到。显式一次搞定,行为可预测。
+# setdefault 而不是直接赋值:尊重外层已设的环境变量(比如本地 .env)。
+try:
+    for _k, _v in dict(st.secrets).items():
+        os.environ.setdefault(_k, str(_v))
+except Exception:
+    pass  # 本地开发无 .streamlit/secrets.toml 时 st.secrets 会 raise,忽略
 
 from src.agents.orchestrator import Orchestrator
 
