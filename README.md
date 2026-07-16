@@ -1,3 +1,14 @@
+---
+title: Listing Agent
+emoji: 🤖
+colorFrom: red
+colorTo: blue
+sdk: streamlit
+sdk_version: 1.30.0
+app_file: app.py
+pinned: false
+---
+
 # Listing Agent · 跨境电商 Multi-Agent Copilot
 
 > **FDE / AI 应用工程师面试作品集项目**
