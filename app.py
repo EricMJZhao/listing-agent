@@ -188,11 +188,7 @@ if run_button and product_info is not None:
         if len(result["rounds"]) > 1:
             st.subheader("📈 分数演化")
             scores = [r["score"] for r in result["rounds"]]
-            st.line_chart(
-                {"软规则分": scores},
-                y_axis_label="分数",
-                x_axis_label="轮次",
-            )
+            st.line_chart({"软规则分": scores})
 
         # === 最终 Listing 分区展示 ===
         st.subheader("✨ 最终交付 Listing")
@@ -251,8 +247,3 @@ else:
 # ============================================================
 # 底部
 # ============================================================
-st.markdown("---")
-st.caption(
-    "Made by Eric · 前阿里国际站销售(8 年)+ AI 应用开发者 · "
-    "Python · Anthropic Claude · 自研 Multi-Agent 编排 · 2026-07"
-)
