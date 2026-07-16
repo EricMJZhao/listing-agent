@@ -101,7 +101,7 @@ with st.sidebar:
 
     input_mode = st.radio(
         "输入方式",
-        ["选择内置样品", "粘贴自定义 JSON"],
+        ["选择内置样品", "填表单生成", "粘贴自定义 JSON"],
         index=0,
     )
 
@@ -120,6 +120,65 @@ with st.sidebar:
         st.caption(f"📍 亚马逊类目路径:{selected_sample['category_path']}")
         with st.expander("查看商品 JSON"):
             st.json(product_info)
+    elif input_mode == "填表单生成":
+        st.caption("填几个字段,自动组装成商品 JSON")
+
+        _product_type = st.text_input(
+            "产品类型 *",
+            placeholder="Kitchen Towel",
+            help="用英文,越具体越好",
+        )
+        _category_leaf = st.text_input(
+            "亚马逊类目(最后一级)*",
+            placeholder="Kitchen Towels",
+            help="会自动补前缀 Home & Kitchen > Kitchen & Dining >",
+        )
+        _differentiation = st.text_area(
+            "差异化亮点 *(每行一条)",
+            placeholder="Thicker than competitors\nSet of 6 vs. their 4\nMachine washable",
+            height=100,
+        )
+
+        with st.expander("补充字段(可选,填了效果更好)"):
+            _material = st.text_input("材质", placeholder="100% cotton")
+            _features = st.text_area(
+                "核心特性(每行一条)",
+                placeholder="Absorbent\nQuick-dry\nDishwasher safe",
+                height=80,
+            )
+            _target_audience = st.text_input(
+                "目标客户",
+                placeholder="home cooks aged 25-45",
+            )
+            _price_positioning = st.text_input(
+                "价格定位",
+                placeholder="$19.99, competitors $12-25",
+            )
+            _keywords_seed = st.text_input(
+                "关键词种子(逗号分隔)",
+                placeholder="kitchen towel, dish towel, tea towel",
+            )
+
+        if _product_type and _category_leaf and _differentiation.strip():
+            product_info = {
+                "sku": f"CUSTOM-{_product_type.upper().replace(' ', '-')[:12]}-001",
+                "category_path": f"Home & Kitchen > Kitchen & Dining > {_category_leaf}",
+                "product_type": _product_type,
+                "target_marketplace": "amazon.com",
+                "target_language": "en-US",
+                "attributes": {
+                    "material": _material or "unspecified",
+                    "features": [_l.strip() for _l in _features.split("\n") if _l.strip()] if _features else [],
+                },
+                "differentiation": [_l.strip() for _l in _differentiation.split("\n") if _l.strip()],
+                "target_audience": _target_audience or "general consumers",
+                "price_positioning": _price_positioning or "mid-market",
+                "keywords_seed": [_k.strip() for _k in _keywords_seed.split(",") if _k.strip()] if _keywords_seed else [],
+            }
+            with st.expander("查看自动生成的商品 JSON"):
+                st.json(product_info)
+        else:
+            st.caption("💡 填完必填 * 字段就自动组装 JSON")
     else:
         custom_json_str = st.text_area(
             "粘贴商品 JSON",
