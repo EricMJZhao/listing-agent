@@ -58,7 +58,7 @@ st.set_page_config(
 # ============================================================
 st.title("🤖 亚马逊 Listing 生成 Agent")
 st.markdown(
-    "**针对 Amazon.com · Home & Kitchen 类目** — "
+    "**针对 Amazon.com · Home & Kitchen > Kitchen & Dining 类目** — "
     "输入商品属性,输出可直接发布的完整 Listing(Title / 5 Bullets / Backend Keywords / Search Terms)"
 )
 
