@@ -101,16 +101,16 @@ with st.sidebar:
 
     input_mode = st.radio(
         "输入方式",
-        ["选择内置样品", "填表单生成", "粘贴自定义 JSON"],
+        ["选择店内商品", "填表单生成", "粘贴自定义 JSON"],
         index=0,
     )
 
     product_info: dict | None = None
 
-    if input_mode == "选择内置样品":
+    if input_mode == "选择店内商品":
         _labels = [s["label"] for s in sample_options]
         selected_idx = st.selectbox(
-            "选择商品样品",
+            "选择商品",
             range(len(sample_options)),
             format_func=lambda i: _labels[i],
             index=0,
@@ -141,6 +141,14 @@ with st.sidebar:
 
         with st.expander("补充字段(可选,填了效果更好)"):
             _material = st.text_input("材质", placeholder="100% cotton")
+            _dimensions = st.text_input("尺寸", placeholder="16 x 12 x 0.8 inches")
+            _weight = st.text_input("重量", placeholder="2.3 lbs")
+            _color = st.text_input("颜色", placeholder="natural / white / black")
+            _package_contents = st.text_area(
+                "包装内容(每行一条)",
+                placeholder="1x main product\n1x hanging rope",
+                height=70,
+            )
             _features = st.text_area(
                 "核心特性(每行一条)",
                 placeholder="Absorbent\nQuick-dry\nDishwasher safe",
@@ -159,17 +167,42 @@ with st.sidebar:
                 placeholder="kitchen towel, dish towel, tea towel",
             )
 
+        with st.expander("自定义属性(想加什么加什么)"):
+            st.caption("每行填一条,格式:属性名 = 值。可以填任何字段,比如认证、保修、温度范围等。")
+            _custom_attrs = st.text_area(
+                "自定义属性",
+                placeholder="warranty = 2 years\ncertification = FDA-approved\ntemperature_range_f = -40 to 480",
+                height=100,
+                label_visibility="collapsed",
+            )
+
         if _product_type and _category_leaf and _differentiation.strip():
+            _attrs: dict = {"material": _material or "unspecified"}
+            if _dimensions:
+                _attrs["dimensions"] = _dimensions
+            if _weight:
+                _attrs["weight"] = _weight
+            if _color:
+                _attrs["color"] = _color
+            if _package_contents:
+                _attrs["package_contents"] = [_l.strip() for _l in _package_contents.split("\n") if _l.strip()]
+            if _features:
+                _attrs["features"] = [_l.strip() for _l in _features.split("\n") if _l.strip()]
+            if _custom_attrs:
+                for _line in _custom_attrs.split("\n"):
+                    if "=" in _line:
+                        _k, _v = _line.split("=", 1)
+                        _k = _k.strip()
+                        if _k:
+                            _attrs[_k] = _v.strip()
+
             product_info = {
                 "sku": f"CUSTOM-{_product_type.upper().replace(' ', '-')[:12]}-001",
                 "category_path": f"Home & Kitchen > Kitchen & Dining > {_category_leaf}",
                 "product_type": _product_type,
                 "target_marketplace": "amazon.com",
                 "target_language": "en-US",
-                "attributes": {
-                    "material": _material or "unspecified",
-                    "features": [_l.strip() for _l in _features.split("\n") if _l.strip()] if _features else [],
-                },
+                "attributes": _attrs,
                 "differentiation": [_l.strip() for _l in _differentiation.split("\n") if _l.strip()],
                 "target_audience": _target_audience or "general consumers",
                 "price_positioning": _price_positioning or "mid-market",
@@ -297,11 +330,11 @@ if run_button and product_info is not None:
                     st.json(r["listing"])
 
 elif run_button and product_info is None:
-    st.warning("请先选择样品或粘贴合法 JSON")
+    st.warning("请先选择商品或填完表单必填字段")
 
 else:
     st.markdown("---")
-    st.info("👈 从左侧选一个样品商品,点 **🚀 生成 Listing** 开始。")
+    st.info("👈 从左侧选一个商品,点 **🚀 生成 Listing** 开始。")
 
 # ============================================================
 # 底部
