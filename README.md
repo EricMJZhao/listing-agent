@@ -9,17 +9,25 @@ app_file: app.py
 pinned: false
 ---
 
-# Listing Agent · 跨境电商 Multi-Agent Copilot
+# Listing Agent · Amazon Home & Kitchen Multi-Agent Copilot
 
 > **FDE / AI 应用工程师面试作品集项目**
 > 作者:Eric(前阿里国际站销售 8 年 + AI 应用开发)
 
+## 🚀 在线演示
+
+**Streamlit Cloud**:`https://listing-agent-<你的子域>.streamlit.app`(GitHub push 后自动重新部署)
+**源码**:https://github.com/EricMJZhao/listing-agent
+
+面试官打开链接 → 侧栏选一个店内商品(或填表单)→ 点"生成 Listing" → 3 分钟内看到 Multi-Agent 循环完整过程 + 最终交付 Listing。
+
 ## 这是什么
 
-给跨境电商卖家的一个 AI Copilot:**输入商品属性 JSON → 输出可直接发布到 Amazon 后台的完整 Listing**(Title + 5 Bullet + Backend Keywords),比人工快 20 倍,比直接问 ChatGPT 强在:
-- **有类目关键词知识**(RAG · BM25 检索)
+针对 **Amazon.com · Home & Kitchen > Kitchen & Dining 类目**的 AI Copilot:**输入商品属性 → 输出可直接发布到 Amazon 后台的完整 Listing**(Title + 5 Bullet + Backend Keywords + Search Terms)。比人工快 20 倍,比直接问 ChatGPT 强在:
+- **有类目关键词知识**(RAG · BM25 检索 · 803 词自动采集)
 - **能自我审核和修正**(Writer ↔ Reviewer 循环)
-- **会主动查数据决策**(Function Calling · 自研 Agent Loop)
+- **会主动查数据决策**(Function Calling · 自研 Agent Loop + 真实 Amazon API)
+- **配置驱动扩展**(YAML 加新类目零代码)
 
 ## 5 个技术亮点
 
@@ -48,7 +56,7 @@ streamlit run app.py                              # 浏览器 http://localhost:8
 python run_cli.py data/sample_products/product_1.json    # CLI 版
 ```
 
-## 项目形态(7 个 Sprint,已完成 7 个)
+## 项目形态(8 个 Sprint,已完成 8 个)
 
 | Sprint | 内容 | 涉及技术 | 状态 |
 |---|---|---|---|
@@ -58,7 +66,8 @@ python run_cli.py data/sample_products/product_1.json    # CLI 版
 | 3 | Function Calling + 自研 Agent Loop | Tool Use + `stop_reason` 状态机 | ✅ 完成 |
 | 4 | LLM as Judge + Batch Eval | 独立评估层 + 多次采样降波动 | ✅ 完成 |
 | 5 | Streamlit UI + 部署 | 展示层解耦 + 公网 URL | ✅ 完成 |
-| **6** | **Amazon API 逆向采集 + 静态 RAG + 真实 API tool + YAML 配置化** | **BFS 递归 + 双 set 去重 + Function Calling 真实 API + 配置驱动** | ✅ **完成** |
+| 6 | Amazon API 逆向采集 + 静态 RAG + 真实 API tool + YAML 配置化 | BFS 递归 + 双 set 去重 + Function Calling 真实 API + 配置驱动 | ✅ 完成 |
+| **7** | **Streamlit Cloud 上线 + UI 商业化改造** | **st.secrets → env 显式镜像 · 表单化输入 · 类目精准化描述** | ✅ **完成** |
 
 ## 目录结构
 
@@ -156,7 +165,7 @@ python -m src.tools.amazon_suggest --category outdoor
 
 **如果面试有屏幕共享**:参考 [`docs/DEMO.md`](docs/DEMO.md) Part 4 的现场演示指引,每一步都有该讲的话。
 
-**如果面试官在远程**:部署到 Streamlit Community Cloud 后,把 URL 发给面试官 —— 他不需要装 Python 就能试。部署指南见 [`docs/DEPLOY.md`](docs/DEPLOY.md)。
+**如果面试官在远程**:项目已经部署到 Streamlit Community Cloud(见页首"在线演示"),直接把 URL 发给面试官 —— 不需要装 Python。首次访问自动 rebuild。部署踩坑记录 + 完整流程见 [`docs/DEPLOY.md`](docs/DEPLOY.md)。
 
 ## 文档指引
 
@@ -175,6 +184,8 @@ python -m src.tools.amazon_suggest --category outdoor
 **AI/LLM**:Anthropic Claude API · Multi-Agent 编排 · 自研 Agent Loop · Prompt Engineering · JSON Schema · Tool Use(mock + 真实 API) · LLM as Judge
 
 **编程**:Python 3.10+ · Anthropic SDK · rank-bm25 · Streamlit · requests · pyyaml · argparse · BFS 递归 · fail-fast 配置校验
+
+**部署**:GitHub git-based auto-deploy · Streamlit Community Cloud · st.secrets → os.environ 显式镜像(适配 Streamlit Cloud timing 问题)
 
 **领域**:Amazon A9 SEO · 跨境电商 Listing 优化 · Amazon TOS 禁用词规则 · Amazon 搜索建议接口逆向
 

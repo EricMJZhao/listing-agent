@@ -7,7 +7,7 @@
 
 **核心原则**:面试不是背课文,是**讲你自己做的事**。这份稿子帮你把已经做过的事讲清楚,不是让你死记硬背。
 
-**最新更新**:2026-07-14 · Sprint 0-5 全部完成
+**最新更新**:2026-07-16 · Sprint 0-7 全部完成(Streamlit Cloud 上线 + UI 商业化)
 
 ---
 
@@ -51,7 +51,7 @@
 
 **场景**:面试官说"讲讲你的技术实现"或"这个项目最难的地方"
 
-> "整个项目 6 个 Sprint 全部完成,分为 3 层递进 ——
+> "整个项目 8 个 Sprint 全部完成,分为 4 层递进 ——
 >
 > **基础层(Sprint 0-1)**:单 Agent + RAG(BM25 关键词库)。故意先做最简单的,验证 API 链路 + Prompt 设计,然后挂 RAG 让 Writer 有据可依。BM25 不用向量库,因为跨境电商是精确匹配需求。
 >
@@ -60,6 +60,8 @@
 > **智能层(Sprint 3)**:Function Calling + 自研 Agent Loop。手写 30 行 stop_reason 状态机,Writer 可以主动调 `search_keyword_volume` 和 `check_text_bytes` 做决策。**Sprint 3 让同一个 case 从 2 轮通过变成 1 轮通过**,因为 Writer 提前调 tool 避免 backend_bytes 违规。
 >
 > **评估 + 交付(Sprint 4-5)**:LLM as Judge 独立评估层 + batch_eval 批量脚本 + Streamlit UI + Community Cloud 部署。
+>
+> **扩展 + 上线(Sprint 6-7)**:Amazon 搜索建议接口逆向 + YAML 配置化 + Streamlit Cloud 正式上线。40 秒采 803 词(vs 手工 100 词/60 分钟),加新类目 = 写一个 YAML 不改 Python。部署时踩了 HF Spaces quota=0 的坑,转 Streamlit Cloud 5 分钟搞定 —— **选平台看 API 报错不看营销页**。
 >
 > **贯穿全项目一个哲学:Graceful Degradation** —— model fallback、RAG fallback、择优输出,三处同一个思想:单点缺失不阻塞整体。"
 
@@ -71,7 +73,7 @@
 
 > "我的项目是**跨境电商 Multi-Agent Listing Copilot**,给卖家一个商品 JSON,输出可直接贴 Amazon 后台的完整 Listing。选这个方向的原因是我在阿里国际站做过 8 年销售,而且 2026-07 我看的 25 个 JD 里有 6 家跨境电商公司直接招'跨境电商 Agent 工程师'。
 >
-> 6 个 Sprint 全部完成。我按重要性讲 5 个技术亮点:
+> 8 个 Sprint 全部完成。我按重要性讲 5 个技术亮点:
 >
 > **一,自研 Multi-Agent 闭环(Sprint 2)**。Writer + Reviewer + Orchestrator。**核心决策是硬规则纯代码 100% 判断,软规则 LLM 判断** —— Sprint 0 实测发现 LLM 对'字节数'类硬边界踩线是随机的,一次超 8 字节一次差 6 字节。**能被代码算准的事不该给 LLM 猜**。这个边界感是新手和有经验 Agent 工程师的分水岭。
 >
@@ -140,6 +142,23 @@ python run_cli.py data/sample_products/product_2.json
 3. **分数演化折线图** → "**可视化收敛过程**"
 4. **Listing 分区展示** → "最终交付"
 5. **展开 '每轮完整数据'** → "面试官可以自己看每一轮 Writer 改了什么、Reviewer 提了什么 —— **完全透明的 Agent 决策链**"
+
+### 演示 4:填表单模式 · 面试官带产品来玩(Sprint 7 加入,2026-07-16)
+
+**说的话**:
+> "我不需要面试官会写 JSON。左侧切'填表单生成',30 秒填 3 个必填字段就能试。"
+
+**指屏幕说的话**:
+
+1. **左侧输入方式切"填表单生成"**
+2. **必填 3 项**:产品类型(如 Kitchen Towel)、亚马逊类目最后一级(如 Kitchen Towels)、差异化亮点(每行一条)
+3. **展开"补充字段"** → "材质/尺寸/重量/颜色/包装,常见字段"
+4. **展开"自定义属性"** → "**每行 key=value,想加什么加什么**。这是**沙盒 + 逃生舱**模式 —— 预设字段给新手明确路径,自定义属性给专家自由裁量"
+5. **展开"查看自动生成的商品 JSON"** → "你填的表单其实变成了这个 JSON,面试官不用管 JSON 结构"
+6. 点生成,同演示 3
+
+**面试可讲**:
+> "同一个 agent 3 种入口 —— 店内商品(零输入零学习)、填表单(30 秒)、粘贴 JSON(技术用户直接 API 集成)。**progressive disclosure** —— 新手最简界面,高级用户按需展开。产品能力可以设计成**分层**,不是 all-or-nothing。"
 
 ---
 
@@ -269,7 +288,7 @@ python -m src.tools.amazon_suggest --category baking
 
 **面试官问"你有没有真实数据"时直接指这张表**。
 
-### 4 次完整循环对比
+### 5 次完整循环对比
 
 | # | 类目 | 阶段 | Round 1 → Round N | 最终得分 |
 |---|---|---|---|---|
@@ -343,10 +362,12 @@ Writer 主动调 tool 6 次:
 - **Agent 2:Amazon PPC 广告调价 Agent** —— Multi-Agent 决策 + Function Calling,面试卖点最贵
 - **Agent 3:卖家数据 ChatBI Agent** —— Text-to-SQL + Code Interpreter,跨行业弹性
 
-**Listing Agent 本身的下一步**:
-- Sprint 4 深化:跨 provider Judge 交叉验证
-- Sprint 6(新):加多语种支持(en-US / ja-JP / de-DE)
-- Sprint 7(新):Prompt Caching 降本 60%
+**Listing Agent 本身的下一步(Sprint 8+)**:
+- Sprint 4 深化:跨 provider Judge 交叉验证(Claude vs GPT-4)
+- 多语种:en-US / ja-JP / de-DE 三套 Prompt
+- Prompt Caching 降本 60%
+- 加更多子类目样品覆盖 Kitchen & Dining 全部(现在 2 个,目标 10 个)
+- 面试官反馈的具体功能(TBD)
 
 ---
 
@@ -445,7 +466,7 @@ UI/CLI → Orchestrator(循环)→ Writer / Reviewer → BaseAgent(fallback + Ag
 - [ ] 跑一次 `python run_cli.py data/sample_products/product_1.json`,把输出保存到笔记本
 - [ ] 跑一次 `python run_cli.py data/sample_products/product_2.json`,把输出保存到笔记本
 - [ ] 跑一次 `streamlit run app.py` 确认本地 UI 能用
-- [ ] 打开你的 Streamlit Cloud URL,试一次能通(**如果已部署**)
+- [ ] 打开你的 Streamlit Cloud URL,试一次能通(**面试前 24 小时先预热,避免 sleep-on-idle**)
 - [ ] 打开 `docs/bad_cases.md` 通读一遍(3-5 个真实 case)
 - [ ] 打开 `docs/DESIGN.md` 通读一遍(架构文档)
 - [ ] 打开 `data/knowledge_base/cutting_board_keywords.json` 看一眼

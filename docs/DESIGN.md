@@ -1,7 +1,7 @@
 # 架构设计文档
 
 > 这份文档是面试时给面试官看的架构说明。
-> 每个 Sprint 完成一次更新,截至 2026-07-14 已完成 Sprint 0-5,项目机制上完全成立。
+> 每个 Sprint 完成一次更新,截至 2026-07-16 已完成 Sprint 0-7,Streamlit Community Cloud 上线,机制上完全成立。
 
 ## 一、项目定位
 
@@ -21,7 +21,7 @@
 | 我能主动查 Amazon 数据决策(搜索量、字节数) | Function Calling · 自研 Agent Loop | 3 |
 | 我有独立的质量评估层,可以做 A/B 对比 | LLM as Judge · Batch Eval | 4 |
 
-## 三、架构演进(Sprint 0-5)
+## 三、架构演进(Sprint 0-7)
 
 ### Sprint 0:单 Agent 端到端
 
@@ -190,6 +190,55 @@ Writer 运行时自主决定要不要联网查
 
 详细数据洞察 + 面试话术库见 [`docs/sprint6_findings.md`](sprint6_findings.md)。
 
+### Sprint 7:Streamlit Cloud 上线 + UI 商业化(2026-07-16)
+
+**做什么**:
+1. HF Spaces 尝试失败(免费 cpu-basic quota=0 政策)→ 转 Streamlit Community Cloud
+2. app.py 顶部加 `st.secrets → os.environ` 显式镜像(适配 Streamlit Cloud secrets timing 问题)
+3. README 加 HF frontmatter(为兼容留着,不影响 Streamlit Cloud)
+4. UI 商业化改造:
+   - 类目精准化:"跨境电商" → "Amazon.com · Home & Kitchen > Kitchen & Dining"
+   - 文案:样品 → 店内商品
+   - 侧栏样品显示读 JSON 的 product_type + category_leaf 生成友好 label
+   - 加"填表单生成"输入模式:必填 3 字段 + 选填 5 字段 + 万能 key=value 自定义属性
+   - 主页删项目介绍/技术文档/命令行提示,极简化引导
+
+**架构**:
+```
+GitHub (source of truth)
+        │
+        ▼ (git push 触发 auto-rebuild)
+Streamlit Community Cloud runtime
+        │
+        ▼ (启动时把 secrets 加载到 st.secrets)
+app.py 顶部:
+    try:
+        for k, v in dict(st.secrets).items():
+            os.environ.setdefault(k, str(v))
+    except: pass
+        │
+        ▼ (业务代码 import,src/config.py 顶层 os.getenv 能命中)
+Orchestrator → Writer + Reviewer → BaseAgent → Claude API
+                                                   │
+                                                   ▼
+                                        Anthropic 或 closeai(base_url 切)
+```
+
+**技术决策**:
+- **平台选型看 API 报错,不看营销页**:HF Spaces 官网说免费 cpu-basic,实际账号级 quota=0(2026-07 政策)。靠 `hf spaces info` API 才拿到真实 errorMessage(`current=0, limit=0`)。Streamlit Cloud 无 quota 限制,更适合免费个人项目。
+- **secrets 显式 mirror 放在 app.py 而不是 src/config.py**:**适配层放在最边界**,业务代码保持"跨平台通用"。业务代码不应该知道自己跑在什么平台 —— **依赖倒置**。
+- **`os.environ.setdefault` 而不是 `os.environ[k] = v`**:尊重外层已有环境变量,本地 `.env` 优先。同一段适配代码本地和云端行为一致,只是数据源不同。
+- **try/except 兜底**:本地无 `.streamlit/secrets.toml` 时 `st.secrets` 访问会 raise,忽略即可,`python check_env.py` / `run_cli.py` 不受影响。
+- **UI 文案商业化**:"样品"是实验室词(sample),"店内商品"是商业词(product in your store)。同一个技术产品换个词就换个人设,面向电商卖家的 agent 应该说卖家的语言。
+- **表单三层输入模式**:店内商品(零输入)→ 填表单(30 秒)→ 粘贴 JSON(技术用户)。**progressive disclosure**:新手看到最简界面,高级用户按需展开。
+- **类目精准到 Kitchen & Dining**:上位类 "Home & Kitchen" 过泛,精确到子类目反而显得专业 —— **能说清楚不做什么才证明知道做什么**。
+
+**产出**:
+- 面试可分享的公网 URL(Streamlit Community Cloud)
+- GitHub public repo(源码托管 + 面试官可看代码)
+- 表单模式覆盖非技术用户:面试官不用会写 JSON,填 3 个字段就能试
+- 完整部署踩坑记录 → 见 [`docs/DEPLOY.md`](DEPLOY.md)
+
 ## 四、贯穿全项目的设计哲学
 
 ### Graceful Degradation(3 处贯穿)
@@ -206,11 +255,13 @@ Writer 运行时自主决定要不要联网查
 
 | 接缝 | 何时留 | 何时兑现 |
 |---|---|---|
-| `llm_client.py` 抽象层 | Sprint 0 | Sprint 5 部署切官方 Key,一行不改 |
+| `llm_client.py` 抽象层 | Sprint 0 | Sprint 5 部署切官方 Key + Sprint 7 切 closeai,一行不改 |
 | `BaseAgent` 基类 | Sprint 2 Step 1 | Sprint 3 加 Agent Loop,所有 Agent 自动受益 |
 | `dict → dict` 统一接口 | Sprint 2 | Sprint 5 UI 展示层无痛接入 |
 | `reporting.py` 打印函数抽出 | Sprint 5 前 | Streamlit UI 复用 CLI 的打印逻辑 |
 | `RuleIssue dataclass` | Sprint 2 Step 2 | Sprint 4 Judge 复用同一个 issue 数据结构 |
+| `mock_tools.py` schema/impl/dispatcher 三件套 | Sprint 3 | Sprint 6 加真实 Amazon API tool 只加 3 行注册,base.py 零改动 |
+| `os.getenv` 读环境变量 | Sprint 0 | Sprint 7 部署时用 `st.secrets → os.environ` 显式 mirror 注入,业务代码零改 |
 
 **核心思想**:**架构演化不是拍脑袋改,是提前留接缝**。每次抽象都是复利。
 
