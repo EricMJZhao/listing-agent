@@ -1,0 +1,46 @@
+# 类目配置:烘焙工具(Sprint 6 Task 3)
+#
+# 这个文件是"加一个新类目零代码"的接口。加类目只需要:
+#   1. cp baking.yaml new_category.yaml
+#   2. 改 name / seeds / description
+#   3. 跑 python -m src.tools.amazon_suggest --category new_category
+#
+# schema 说明:
+#   name:                类目英文标识,决定落盘文件名
+#   description:         人类可读描述(存进 knowledge_base metadata)
+#   alias:               Amazon 类目 alias。aps=全站,kitchen=厨房垂直,后续研究
+#   max_depth:           BFS 递归深度。2=够用,3=词量爆炸慎用
+#   sub_categories[].name:   子类目标识
+#   sub_categories[].seeds:  1-N 个短入口种子词(短词召回好,多词覆盖同义表达)
+
+name: baking
+description: "烘焙工具类目 —— 硅胶烤垫、蛋糕模、量杯量勺、裱花袋、饼干模具"
+alias: aps
+max_depth: 2
+
+sub_categories:
+  - name: silicone_mat
+    seeds:
+      - silicone baking mat
+      - silicone mat
+
+  - name: cake_pan
+    seeds:
+      - cake pan
+      - springform pan
+      - bundt pan
+
+  - name: measuring_cups
+    seeds:
+      - measuring cups
+      - measuring spoons
+
+  - name: piping
+    seeds:
+      - piping bag
+      - piping tip
+      - pastry bag
+
+  - name: cookie_cutter
+    seeds:
+      - cookie cutter

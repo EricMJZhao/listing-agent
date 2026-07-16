@@ -1,0 +1,450 @@
+{
+  "seed": "silicone baking",
+  "max_depth": 2,
+  "alias": "aps",
+  "collected_at": "2026-07-16T05:27:40.947693+00:00",
+  "request_count": 10,
+  "total_keywords": 88,
+  "keywords": [
+    {
+      "value": "silicone baking mat",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking molds",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking cups",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking pan",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking sheet",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "macaron silicone baking mats",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking mats for oven",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silpat silicone baking mat",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking set",
+      "depth": 1,
+      "parent": "silicone baking"
+    },
+    {
+      "value": "silicone baking mats nonstick reusable",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "silicone baking mats cookie sheet",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "silicone baking mats reusable",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "sil pat silicone baking mat",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "silicone baking mat multi pack sets",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "silicone baking mat roll",
+      "depth": 2,
+      "parent": "silicone baking mat"
+    },
+    {
+      "value": "food-grade silicone baking molds",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds shapes",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds mini",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds for oven",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds for air fryer",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds for freezer",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds cupcakes muffins",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds for cakes",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "silicone baking molds set",
+      "depth": 2,
+      "parent": "silicone baking molds"
+    },
+    {
+      "value": "reusable silicone baking cups",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups muffin",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "oxo silicone baking cups",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups for eggs",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "jumbo silicone baking cups",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups for air fryer",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups mini",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups large",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking cups bundt",
+      "depth": 2,
+      "parent": "silicone baking cups"
+    },
+    {
+      "value": "silicone baking pans for oven",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "8x8 silicone baking pan",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking pan set",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "muffin top silicone baking pan",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "9x9 silicone baking pan",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking pan 9x13",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking pan with lid",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking pan for air fryer",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking pan liners",
+      "depth": 2,
+      "parent": "silicone baking pan"
+    },
+    {
+      "value": "silicone baking sheets for oven",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheets reusable",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheet pan",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheet liner",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheets for cookies",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheet mat",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheet set",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheets for oven reusable",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "silicone baking sheet roll",
+      "depth": 2,
+      "parent": "silicone baking sheet"
+    },
+    {
+      "value": "macaron silicone baking mats full sheet",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats half sheet",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats with tray",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats with pan",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats amazon basics",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats silpat",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats shapes",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats 18x13",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "macaron silicone baking mats 16x24",
+      "depth": 2,
+      "parent": "macaron silicone baking mats"
+    },
+    {
+      "value": "silicone baking mats for oven full sheet",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven quarter sheet",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven round",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven half sheet",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven made in france",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven loaf pan",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven small",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven checkered",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silicone baking mats for oven large",
+      "depth": 2,
+      "parent": "silicone baking mats for oven"
+    },
+    {
+      "value": "silpat silicone baking mat half sheet",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat quarter sheet",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat 11x16",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat full size",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat perfect cookie",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat 1/2 sheet",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat 19.5 x 13.5",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat extra large",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silpat silicone baking mat cookies",
+      "depth": 2,
+      "parent": "silpat silicone baking mat"
+    },
+    {
+      "value": "silicone baking sets for oven",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking sets multiple pans",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set for air fryer",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set for kids",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set with lids",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set with pizza pan",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set with metal frame",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set pink",
+      "depth": 2,
+      "parent": "silicone baking set"
+    },
+    {
+      "value": "silicone baking set muffin",
+      "depth": 2,
+      "parent": "silicone baking set"
+    }
+  ]
+}

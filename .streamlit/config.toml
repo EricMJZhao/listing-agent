@@ -1,0 +1,16 @@
+# Streamlit Community Cloud 部署配置
+# 参考:https://docs.streamlit.io/deploy/streamlit-community-cloud
+
+[theme]
+primaryColor = "#FF6B6B"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F0F2F6"
+textColor = "#262730"
+font = "sans serif"
+
+[server]
+maxUploadSize = 5
+maxMessageSize = 10
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,34 @@
+{
+  "sku": "BAM-CB-001",
+  "category_path": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils > Cutting Boards",
+  "product_type": "Bamboo Cutting Board",
+  "target_marketplace": "amazon.com",
+  "target_language": "en-US",
+  "attributes": {
+    "material": "100% organic bamboo",
+    "dimensions_inches": "17 x 12 x 0.8",
+    "weight_lbs": 2.3,
+    "surface_treatment": "food-grade mineral oil pre-seasoned",
+    "features": [
+      "juice groove around the edge",
+      "built-in side handles",
+      "antibacterial (naturally mold-resistant)",
+      "reversible dual-side use"
+    ],
+    "package_contents": ["1x cutting board", "1x hanging jute rope"]
+  },
+  "differentiation": [
+    "Thicker (0.8 in) than typical competitors (0.5 in) — won't warp",
+    "Deeper juice groove holds up to 3 fl oz",
+    "Comes with hanging rope for kitchen wall display"
+  ],
+  "target_audience": "home cooks aged 25-45 who care about eco-friendly kitchen tools",
+  "price_positioning": "mid-premium ($29.99, competitors $18-45)",
+  "keywords_seed": [
+    "bamboo cutting board",
+    "wood cutting board",
+    "large cutting board",
+    "chopping board",
+    "kitchen cutting board"
+  ]
+}

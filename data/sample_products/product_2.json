@@ -1,0 +1,34 @@
+{
+  "sku": "SIL-BM-002",
+  "category_path": "Home & Kitchen > Kitchen & Dining > Bakeware > Baking Mats",
+  "product_type": "Silicone Baking Mat",
+  "target_marketplace": "amazon.com",
+  "target_language": "en-US",
+  "attributes": {
+    "material": "food-grade silicone with fiberglass core",
+    "dimensions_inches": "16.5 x 11.6",
+    "weight_oz": 4.8,
+    "temperature_range_f": "-40 to 480",
+    "features": [
+      "non-stick (no oil or spray needed)",
+      "reusable (replaces parchment paper)",
+      "measurement markings on surface",
+      "dishwasher safe"
+    ],
+    "package_contents": ["2x baking mats"]
+  },
+  "differentiation": [
+    "Set of 2 vs. competitors' single mat at similar price",
+    "Printed measurement grid (for macarons, cookies)",
+    "480F rated vs. competitors' 450F"
+  ],
+  "target_audience": "home bakers, cookie/macaron enthusiasts, eco-conscious households",
+  "price_positioning": "value ($13.99 for 2, competitors $10-20 for 1)",
+  "keywords_seed": [
+    "silicone baking mat",
+    "silicone baking sheet",
+    "reusable parchment paper",
+    "macaron mat",
+    "cookie baking mat"
+  ]
+}

@@ -1,0 +1,32 @@
+# === Sprint 0 依赖(最小集)===
+# anthropic: Claude 官方 Python SDK
+# python-dotenv: 从 .env 文件读环境变量(API Key)
+anthropic>=0.40.0
+python-dotenv>=1.0.0
+
+# === Sprint 1: RAG(2026-07-14 加入)===
+# rank-bm25: BM25 关键词检索
+# 为什么选 BM25 不选向量库:
+#   跨境电商关键词是精确匹配需求(找'cutting board'相关词),
+#   不是语义泛化需求。BM25 一个 pip 装完就能用,零依赖,
+#   面试可讲"选对工具比选贵的工具重要"。
+#   如果 Sprint 3 后加"竞品评论洞察"再切 chromadb 上向量。
+rank-bm25>=0.2.2
+
+# === Sprint 5: Streamlit UI(2026-07-14 加入)===
+streamlit>=1.30.0
+
+# === Sprint 6: Amazon 搜索建议采集(2026-07-16 加入)===
+# requests: 用于调用 amazon.com/suggestions 接口采集真实用户搜索长尾词。
+# 为什么不用 aiohttp/httpx:v0.1 需求是同步小请求,requests 最简单;
+# v0.2 加递归和并发时再评估是否切 aiohttp。
+requests>=2.31.0
+
+# pyyaml: config/categories/*.yaml 配置驱动的类目采集(Task 3)。
+# 为什么 YAML 不 JSON:YAML 支持注释和多行,配置文件是给人读的,
+# 业内标准(k8s/GitHub Actions/Docker Compose 全用 YAML)。
+pyyaml>=6.0
+
+# === 可选依赖(用到再解开)===
+# chromadb>=0.5.0      # 向量数据库(Sprint 4+ 语义检索用)
+# pydantic>=2.0.0      # 数据校验(可选,让 LLM 输出更稳)
