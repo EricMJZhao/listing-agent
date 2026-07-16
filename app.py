@@ -56,10 +56,10 @@ st.set_page_config(
 # ============================================================
 # 顶部标题 + 技术栈标签
 # ============================================================
-st.title("🤖 Listing Agent")
+st.title("🤖 亚马逊 Listing 生成 Agent")
 st.markdown(
-    "**跨境电商 Multi-Agent Copilot** — "
-    "Writer + Reviewer + Orchestrator 闭环 · RAG · Tool Use · 自研 Agent Loop"
+    "**针对 Amazon.com · Home & Kitchen 类目** — "
+    "输入商品属性,输出可直接发布的完整 Listing(Title / 5 Bullets / Backend Keywords / Search Terms)"
 )
 
 # 技术栈标签(用 st.badge 风格显示)
@@ -87,7 +87,17 @@ with st.sidebar:
     samples_dir = Path("data/sample_products")
     sample_files = sorted(samples_dir.glob("*.json"))
 
-    sample_names = [f.stem for f in sample_files]
+    sample_options = []
+    for _f in sample_files:
+        with _f.open("r", encoding="utf-8") as _fp:
+            _d = json.load(_fp)
+        _category_leaf = _d["category_path"].split(">")[-1].strip()
+        sample_options.append({
+            "file": _f,
+            "label": f"{_d['product_type']} · Amazon {_category_leaf}",
+            "data": _d,
+            "category_path": _d["category_path"],
+        })
 
     input_mode = st.radio(
         "输入方式",
@@ -98,10 +108,16 @@ with st.sidebar:
     product_info: dict | None = None
 
     if input_mode == "选择内置样品":
-        selected = st.selectbox("样品", sample_names, index=0)
-        selected_path = samples_dir / f"{selected}.json"
-        with selected_path.open("r", encoding="utf-8") as f:
-            product_info = json.load(f)
+        _labels = [s["label"] for s in sample_options]
+        selected_idx = st.selectbox(
+            "选择商品样品",
+            range(len(sample_options)),
+            format_func=lambda i: _labels[i],
+            index=0,
+        )
+        selected_sample = sample_options[selected_idx]
+        product_info = selected_sample["data"]
+        st.caption(f"📍 亚马逊类目路径:{selected_sample['category_path']}")
         with st.expander("查看商品 JSON"):
             st.json(product_info)
     else:
@@ -229,37 +245,8 @@ elif run_button and product_info is None:
     st.warning("请先选择样品或粘贴合法 JSON")
 
 else:
-    # 未点运行时,显示项目介绍
     st.markdown("---")
-    st.markdown(
-        """
-        ### 👋 欢迎
-
-        这是一个跨境电商 Listing 生成 Agent 的演示。
-        **在左侧选一个样品,点"生成 Listing"** 即可看到 Multi-Agent 循环工作。
-
-        ### 🎯 项目特色
-
-        - **Multi-Agent 闭环**:Writer 写、Reviewer 审、Orchestrator 循环协调
-        - **自研 Agent Loop**:不用 LangChain,手写 `stop_reason` 状态机
-        - **Tool Use**:Writer 主动调 `search_keyword_volume` / `check_text_bytes` 决策
-        - **RAG (BM25)**:类目关键词库 + 竞品 Title,Writer 有据可依写作
-        - **Graceful Degradation**:model fallback + RAG fallback + 择优输出,三处贯穿
-
-        ### 📚 技术文档
-
-        - `docs/DEMO.md` — 面试演示脚本(10 部分完整)
-        - `docs/DESIGN.md` — 架构设计
-        - `docs/bad_cases.md` — 真实翻车 case 记录
-
-        ### 🔧 命令行也可用
-
-        ```bash
-        python run_cli.py data/sample_products/product_1.json
-        python batch_eval.py --n-samples 3
-        ```
-        """
-    )
+    st.info("👈 从左侧选一个样品商品,点 **🚀 生成 Listing** 开始。")
 
 # ============================================================
 # 底部
